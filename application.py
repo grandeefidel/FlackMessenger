@@ -100,7 +100,7 @@ def message(data):
     for m in messages:
         print(f"messages: {m}")
     msg = {"message":message,"timeStamp":timeStamp,"channelName":channelName, "display_name":display_name,"message_id":message_id }
-    emit("emit message", msg , broadcast=True)
+    emit("receive message", msg , broadcast=True)
 
 @app.route("/logout")
 def logout():

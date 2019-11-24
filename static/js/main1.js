@@ -1,5 +1,6 @@
 
     document.addEventListener('DOMContentLoaded', () => {
+  
     let display_name = localStorage.getItem('display_name');
     
        // By default, submit button is disabled
@@ -32,10 +33,12 @@
                };
            });
    
-       socket.on('receive message', data => {
-           const content = document.createElement('div');
+       socket.on('receive message', function(data) {
            console.log("data.display_name:"+ data.display_name);
            console.log("display_name:"+ display_name);
+           const content = document.createElement('div');
+           var msg_page = document.querySelector('#msg-page');
+           console.log("content:"+ content);
             if(data.display_name == display_name ){
                 content.innerHTML = `<div class="outgoing-chats">
                 <div class="outgoing-chats-msg">
@@ -43,7 +46,8 @@
                 <span class="time">${data.timeStamp}</span>
              </div>
           </div>`;
-                console.log("content:"+ content);
+          msg_page.append(content);
+            console.log("content:"+ content.innerHTML);
             }else{
                 
                 content.innerHTML = `<div class="received-chats">
@@ -57,11 +61,10 @@
                     </div>
                 </div>
             </div>`;
-
+            document.querySelector('#msg-page').append(content);
             console.log("content:"+ content);
             }
 
-           document.querySelector('#msg-page').append(content);
            document.querySelector('#task').value = '';
            document.querySelector('#submit').disabled = true;
            document.querySelector('#submit').style.color = "red";
